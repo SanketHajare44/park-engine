@@ -24,19 +24,14 @@
 
 ## Overview
 
-**ParkEngine** is a Java-based Low-Level Design implementation of a multi-floor parking lot.
+The **Parking Lot Management System** is a Java-based application designed using **Object-Oriented System Design**
+principles and Design Patterns.
 
-The system handles:
+The project models a real-world parking facility where different types of vehicles can enter the parking lot, receive
+appropriate parking spaces, generate parking tickets, calculate parking charges, and exit through designated gates.
 
-- Vehicle entry
-- Parking spot allocation
-- Parking ticket generation
-- Parking availability tracking
-- Vehicle search
-- Parking fee calculation
-- Payment processing
-- Vehicle exit
-- Parking spot release
+The primary objective of this project is not only to implement parking functionality, but also to demonstrate how a
+real-world problem can be converted into a **scalable, maintainable, modular, and extensible software architecture.**
 
 The project focuses on applying **Object-Oriented Programming, SOLID principles, interfaces, abstraction, inheritance, polymorphism, and classic design patterns** to a real-world system.
 
@@ -71,223 +66,9 @@ The project focuses on applying **Object-Oriented Programming, SOLID principles,
 | **Strategy**  | `PaymentStrategy`                        | Supports different payment methods                    |
 | **Observer**  | `ParkingObserver`, `ParkingDisplayBoard` | Updates parking availability when spot status changes |
 
-### Singleton Pattern
-
-`ParkingLot` uses the Singleton Pattern to maintain a single instance of the parking lot.
-
-```text
-Application
-     |
-     v
-ParkingLot.getInstance()
-     |
-     v
-Single ParkingLot Instance
-```
-
-### Factory Pattern
-
-`VehicleFactory` creates the required vehicle based on `VehicleType`.
-
-```text
-VehicleFactory
-      |
-      +----> Bike
-      |
-      +----> Car
-      |
-      +----> Truck
-```
-
-### Strategy Pattern
-
-Strategy Pattern is used for:
-
-```text
-ParkingStrategy
-      |
-      +----> FirstAvailableParkingStrategy
-
-PricingStrategy
-      |
-      +----> NormalPricingStrategy
-
-PaymentStrategy
-      |
-      +----> CashPayment
-      |
-      +----> UPIPayment
-      |
-      +----> CardPayment
-```
-
-This allows different algorithms or implementations to be changed without modifying the main parking flow.
-
-### Observer Pattern
-
-`ParkingFloor` maintains observers and notifies them when parking availability changes.
-
-```text
-ParkingFloor
-      |
-      | notify
-      v
-ParkingObserver
-      ^
-      |
-ParkingDisplayBoard
-```
-
----
-
-## OOP & SOLID Principles
-
-### Abstraction
-
-Abstract classes and interfaces define common behavior while hiding implementation details.
-
-Examples:
-
-```text
-Vehicle
-ParkingSpot
-ParkingStrategy
-PricingStrategy
-PaymentStrategy
-ParkingObserver
-```
-
-### Encapsulation
-
-Internal state is kept private and accessed through methods.
-
-Example:
-
-```java
-private String vehicleNumber;
-private VehicleType vehicleType;
-```
-
-### Inheritance
-
-Common behavior is defined in parent classes and specialized by child classes.
-
-```text
-Vehicle
-├── Bike
-├── Car
-└── Truck
-```
-
-```text
-ParkingSpot
-├── BikeSpot
-├── CarSpot
-└── TruckSpot
-```
-
-### Polymorphism
-
-Different implementations can be used through common interfaces.
-
-For example:
-
-```java
-PaymentStrategy paymentStrategy;
-```
-
-can refer to:
-
-```java
-new CashPayment();
-new UPIPayment();
-new CardPayment();
-```
-
-### Single Responsibility
-
-Different responsibilities are separated into different classes:
-
-```text
-VehicleFactory     → Vehicle creation
-ParkingLot         → Parking management
-EntryGate          → Vehicle entry
-ExitGate           → Vehicle exit
-PricingStrategy    → Price calculation
-PaymentStrategy    → Payment processing
-ParkingDisplayBoard → Availability display
-```
-
-### Open/Closed Principle
-
-New payment methods, pricing strategies, and parking strategies can be added by creating new implementations instead of modifying the existing interfaces.
-
-### Dependency Inversion
-
-Core operations depend on interfaces such as:
-
-```text
-ParkingStrategy
-PricingStrategy
-PaymentStrategy
-ParkingObserver
-```
-
-rather than depending directly on specific implementations.
-
 ---
 
 # Architecture
-
-## Component View
-
-```mermaid
-flowchart TB
-
-    CLI["ParkEngine<br/>(CLI Application)"]
-
-    FAC["VehicleFactory"]
-
-    PAY["PaymentStrategy<br/>Cash / UPI / Card"]
-
-    subgraph Core["ParkingLot - Singleton"]
-        PL["parkVehicle()<br/>removeVehicle()<br/>searchVehicle()"]
-        PS["ParkingStrategy<br/>(First Available)"]
-        PR["PricingStrategy<br/>(Normal Pricing)"]
-        TK["activeTickets<br/>vehicleTicketMap"]
-    end
-
-    subgraph Gates["Gates"]
-        EG["EntryGate"]
-        XG["ExitGate"]
-    end
-
-    subgraph Floors["Parking Floors"]
-        PF["ParkingFloor"]
-        SP["ParkingSpot<br/>Bike / Car / Truck"]
-        OB["ParkingDisplayBoard<br/>(Observer)"]
-    end
-
-    CLI -->|"createVehicle()"| FAC
-    CLI -->|"getInstance()"| PL
-    CLI -->|"payment selection"| PAY
-
-    PL --> PS
-    PS -->|"findSpot()"| PF
-
-    PL -->|"occupySpot() / releaseSpot()"| PF
-
-    PF --> SP
-    PF -.->|"update()"| OB
-
-    PL -->|"generateTicket()"| EG
-    PL -->|"processExit()"| XG
-
-    XG --> PR
-    XG --> PAY
-
-    PL --> TK
-```
 
 ---
 
@@ -455,8 +236,6 @@ Park-Engine/
     ├── ParkingLot.java                      # Central parking lot manager (Singleton)
     └── ParkEngine.java                      # CLI application entry point
 ```
-
-> `.class` files are generated Java bytecode and should not be committed to GitHub.
 
 ---
 
