@@ -1,93 +1,259 @@
 <div align="center">
 
-<img src="assets/banner.svg" alt="ParkEngine – Scalable Parking Allocation System" width="100%"/>
+<img src="assets/banner.svg" alt="ParkEngine - Parking Lot Management System" width="100%"/>
 
-# ParkEngine – Scalable Parking Allocation System
+# ParkEngine - Parking Lot Management System
 
-**A clean, extensible, console-based multi-floor parking system built with Java, OOP principles, and classic design patterns.**
+**A console-based multi-floor parking system built with Java, OOP principles, Low-Level Design, and Design Patterns.**
 
 <p>
   <img src="https://img.shields.io/badge/Java-8%2B-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white" alt="Java"/>
-  <img src="https://img.shields.io/badge/System%20Design-Low%20Level%20Design-0A66C2?style=for-the-badge" alt="System Design"/>
+  <img src="https://img.shields.io/badge/Low--Level%20Design-LLD-0A66C2?style=for-the-badge" alt="Low Level Design"/>
   <img src="https://img.shields.io/badge/Design%20Patterns-Singleton%20%7C%20Factory%20%7C%20Strategy%20%7C%20Observer-6E40C9?style=for-the-badge" alt="Design Patterns"/>
-  <img src="https://img.shields.io/badge/OOP-Encapsulation%20%7C%20Inheritance%20%7C%20Polymorphism%20%7C%20Abstraction-2E7D32?style=for-the-badge" alt="OOP"/>
+  <img src="https://img.shields.io/badge/OOP-Abstraction%20%7C%20Encapsulation%20%7C%20Inheritance%20%7C%20Polymorphism-2E7D32?style=for-the-badge" alt="OOP"/>
 </p>
 
 <p>
   <img src="https://img.shields.io/badge/Interface-CLI-black?style=flat-square" alt="CLI"/>
   <img src="https://img.shields.io/badge/Principles-SOLID-orange?style=flat-square" alt="SOLID"/>
-  <img src="https://img.shields.io/badge/Status-Completed-brightgreen?style=flat-square" alt="Status"/>
-  <img src="https://img.shields.io/badge/PRs-welcome-blue?style=flat-square" alt="PRs welcome"/>
 </p>
-
-[Overview](#-overview) •
-[Features](#-features) •
-[Design Patterns](#-design-patterns-used) •
-[Architecture](#-architecture) •
-[Project Structure](#-project-structure) •
-[Getting Started](#-getting-started) •
-[Pricing](#-pricing) •
-[Extending](#-extending-the-system) •
-[Author](#-author)
 
 </div>
 
 ---
 
-## 📖 Overview
+## Overview
 
-**ParkEngine** is a low-level-design (LLD) implementation of a multi-floor parking lot. It handles vehicle entry, spot allocation, ticket generation, fee calculation, and payment. Each concern sits behind its own class or interface, so new behavior can be added without modifying existing code.
+**ParkEngine** is a Java-based Low-Level Design implementation of a multi-floor parking lot.
 
-The project demonstrates **system design thinking**, **object-oriented programming**, and the **SOLID principles** applied through well-known **design patterns**.
+The system handles:
 
-## ✨ Features
+- Vehicle entry
+- Parking spot allocation
+- Parking ticket generation
+- Parking availability tracking
+- Vehicle search
+- Parking fee calculation
+- Payment processing
+- Vehicle exit
+- Parking spot release
 
-- 🚗 **Multiple vehicle types**: Bike, Car, and Truck, each with a dedicated spot type
-- 🏢 **Multi-floor parking**: every floor manages its own spots and availability
-- 🎟️ **Ticket lifecycle**: a ticket is issued at entry (`ACTIVE`) and closed at exit (`CLOSED`)
-- 🔍 **Search by vehicle number**: look up the active ticket of any parked vehicle
-- 🚫 **Duplicate protection**: the same vehicle cannot be parked twice
-- 💰 **Pluggable pricing**: hourly billing, rounded up, with a minimum of 1 hour
-- 💳 **Multiple payment methods**: Cash, UPI, and Card, chosen at exit
-- 📍 **Pluggable allocation**: spot selection is a strategy (default: first available)
-- 📺 **Live display boards**: per-floor availability refreshes on every park and exit
-- 🧩 **Extensible**: new vehicles, pricing rules, payments, and allocation strategies need minimal change
+The project focuses on applying **Object-Oriented Programming, SOLID principles, interfaces, abstraction, inheritance, polymorphism, and classic design patterns** to a real-world system.
 
-## 🧠 Design Patterns Used
+---
 
-| Pattern       | Where                                                   | Why                                                                                 |
-| ------------- | ------------------------------------------------------- | ----------------------------------------------------------------------------------- |
-| **Singleton** | `ParkingLot`                                            | One central parking lot with a lazy, `synchronized` `getInstance()`                 |
-| **Factory**   | `VehicleFactory`                                        | Creates `Bike`, `Car`, or `Truck` from a `VehicleType`, hiding the concrete classes |
-| **Strategy**  | `ParkingStrategy`, `PricingStrategy`, `PaymentStrategy` | Interchangeable algorithms for spot allocation, pricing, and payment                |
-| **Observer**  | `ParkingObserver`, `ParkingDisplayBoard`                | `ParkingFloor` notifies display boards whenever a spot is occupied or released      |
+## Features
 
-### OOP & SOLID in practice
+- Multiple vehicle types: Bike, Car, and Truck
+- Multiple parking floors
+- Vehicle-specific parking spots
+- Parking spot allocation using Strategy Pattern
+- Vehicle creation using Factory Pattern
+- Parking availability updates using Observer Pattern
+- Central parking management using Singleton Pattern
+- Parking ticket generation and tracking
+- Vehicle search using vehicle number
+- Duplicate vehicle parking prevention
+- Parking fee calculation
+- Cash, UPI, and Card payment methods
+- Console-based CLI application
 
-- **Abstraction**: `Vehicle` and `ParkingSpot` are abstract base classes
-- **Inheritance**: `Bike`, `Car`, `Truck` extend `Vehicle`; `BikeSpot`, `CarSpot`, `TruckSpot` extend `ParkingSpot`
-- **Polymorphism**: `canFitVehicle()` and `display()` are overridden per subtype; strategies are used through their interfaces
-- **Encapsulation**: private state with getters, and spot occupancy changes only through `parkVehicle()` and `removeVehicle()`
-- **Single Responsibility**: gates, pricing, payment, allocation, and display each live in their own class
-- **Open/Closed**: add a payment method, pricing rule, or allocation strategy by adding a class
-- **Dependency Inversion**: `ParkingLot` and `ExitGate` depend on `ParkingStrategy`, `PricingStrategy`, and `PaymentStrategy` interfaces
+---
 
-## 🏗️ Architecture
+## Design Patterns Used
 
-### Component view
+| Pattern       | Implementation                           | Purpose                                               |
+| ------------- | ---------------------------------------- | ----------------------------------------------------- |
+| **Singleton** | `ParkingLot`                             | Maintains a single parking lot instance               |
+| **Factory**   | `VehicleFactory`                         | Creates vehicle objects based on vehicle type         |
+| **Strategy**  | `ParkingStrategy`                        | Provides parking spot allocation algorithms           |
+| **Strategy**  | `PricingStrategy`                        | Provides parking fee calculation algorithms           |
+| **Strategy**  | `PaymentStrategy`                        | Supports different payment methods                    |
+| **Observer**  | `ParkingObserver`, `ParkingDisplayBoard` | Updates parking availability when spot status changes |
 
-`ParkEngine` wires everything together and talks only to the `ParkingLot` singleton. `ParkingLot` coordinates the floors, gates, and strategies.
+### Singleton Pattern
+
+`ParkingLot` uses the Singleton Pattern to maintain a single instance of the parking lot.
+
+```text
+Application
+     |
+     v
+ParkingLot.getInstance()
+     |
+     v
+Single ParkingLot Instance
+```
+
+### Factory Pattern
+
+`VehicleFactory` creates the required vehicle based on `VehicleType`.
+
+```text
+VehicleFactory
+      |
+      +----> Bike
+      |
+      +----> Car
+      |
+      +----> Truck
+```
+
+### Strategy Pattern
+
+Strategy Pattern is used for:
+
+```text
+ParkingStrategy
+      |
+      +----> FirstAvailableParkingStrategy
+
+PricingStrategy
+      |
+      +----> NormalPricingStrategy
+
+PaymentStrategy
+      |
+      +----> CashPayment
+      |
+      +----> UPIPayment
+      |
+      +----> CardPayment
+```
+
+This allows different algorithms or implementations to be changed without modifying the main parking flow.
+
+### Observer Pattern
+
+`ParkingFloor` maintains observers and notifies them when parking availability changes.
+
+```text
+ParkingFloor
+      |
+      | notify
+      v
+ParkingObserver
+      ^
+      |
+ParkingDisplayBoard
+```
+
+---
+
+## OOP & SOLID Principles
+
+### Abstraction
+
+Abstract classes and interfaces define common behavior while hiding implementation details.
+
+Examples:
+
+```text
+Vehicle
+ParkingSpot
+ParkingStrategy
+PricingStrategy
+PaymentStrategy
+ParkingObserver
+```
+
+### Encapsulation
+
+Internal state is kept private and accessed through methods.
+
+Example:
+
+```java
+private String vehicleNumber;
+private VehicleType vehicleType;
+```
+
+### Inheritance
+
+Common behavior is defined in parent classes and specialized by child classes.
+
+```text
+Vehicle
+├── Bike
+├── Car
+└── Truck
+```
+
+```text
+ParkingSpot
+├── BikeSpot
+├── CarSpot
+└── TruckSpot
+```
+
+### Polymorphism
+
+Different implementations can be used through common interfaces.
+
+For example:
+
+```java
+PaymentStrategy paymentStrategy;
+```
+
+can refer to:
+
+```java
+new CashPayment();
+new UPIPayment();
+new CardPayment();
+```
+
+### Single Responsibility
+
+Different responsibilities are separated into different classes:
+
+```text
+VehicleFactory     → Vehicle creation
+ParkingLot         → Parking management
+EntryGate          → Vehicle entry
+ExitGate           → Vehicle exit
+PricingStrategy    → Price calculation
+PaymentStrategy    → Payment processing
+ParkingDisplayBoard → Availability display
+```
+
+### Open/Closed Principle
+
+New payment methods, pricing strategies, and parking strategies can be added by creating new implementations instead of modifying the existing interfaces.
+
+### Dependency Inversion
+
+Core operations depend on interfaces such as:
+
+```text
+ParkingStrategy
+PricingStrategy
+PaymentStrategy
+ParkingObserver
+```
+
+rather than depending directly on specific implementations.
+
+---
+
+# Architecture
+
+## Component View
 
 ```mermaid
 flowchart TB
-    CLI["ParkEngine<br/>(CLI: builds floors, gates, boards)"]
+
+    CLI["ParkEngine<br/>(CLI Application)"]
+
     FAC["VehicleFactory"]
+
     PAY["PaymentStrategy<br/>Cash / UPI / Card"]
 
-    subgraph Core["ParkingLot (Singleton)"]
+    subgraph Core["ParkingLot - Singleton"]
         PL["parkVehicle()<br/>removeVehicle()<br/>searchVehicle()"]
-        PS["ParkingStrategy<br/>(default: FirstAvailable)"]
-        PR["PricingStrategy<br/>(default: Normal)"]
+        PS["ParkingStrategy<br/>(First Available)"]
+        PR["PricingStrategy<br/>(Normal Pricing)"]
         TK["activeTickets<br/>vehicleTicketMap"]
     end
 
@@ -96,7 +262,7 @@ flowchart TB
         XG["ExitGate"]
     end
 
-    subgraph Floors["Floors"]
+    subgraph Floors["Parking Floors"]
         PF["ParkingFloor"]
         SP["ParkingSpot<br/>Bike / Car / Truck"]
         OB["ParkingDisplayBoard<br/>(Observer)"]
@@ -104,25 +270,32 @@ flowchart TB
 
     CLI -->|"createVehicle()"| FAC
     CLI -->|"getInstance()"| PL
-    CLI -->|"chooses at exit"| PAY
+    CLI -->|"payment selection"| PAY
 
     PL --> PS
     PS -->|"findSpot()"| PF
+
     PL -->|"occupySpot() / releaseSpot()"| PF
+
     PF --> SP
     PF -.->|"update()"| OB
 
     PL -->|"generateTicket()"| EG
     PL -->|"processExit()"| XG
+
     XG --> PR
     XG --> PAY
+
     PL --> TK
 ```
 
-### Class diagram
+---
+
+## Class Diagram
 
 ```mermaid
 classDiagram
+
     class ParkingLot {
         -ParkingLot instance
         -List~ParkingFloor~ floors
@@ -135,34 +308,53 @@ classDiagram
         +removeVehicle(ticketNo, exitGate, payment)
         +searchVehicle(number) ParkingTicket
     }
+
     class ParkingFloor {
         +occupySpot()
         +releaseSpot()
-        +findAvilableSpot()
-        +addObservers()
+        +findAvailableSpot()
+        +addObserver()
     }
+
     class ParkingSpot {
         <<abstract>>
         +canFitVehicle()*
     }
+
     class Vehicle {
         <<abstract>>
         +display()*
     }
+
     class ParkingTicket
+
     class EntryGate {
         +generateTicket()
     }
+
     class ExitGate {
         +processExit()
     }
+
     class VehicleFactory {
-        +createVehicle()$ Vehicle
+        +createVehicle() Vehicle
     }
-    class ParkingStrategy { <<interface>> }
-    class PricingStrategy { <<interface>> }
-    class PaymentStrategy { <<interface>> }
-    class ParkingObserver { <<interface>> }
+
+    class ParkingStrategy {
+        <<interface>>
+    }
+
+    class PricingStrategy {
+        <<interface>>
+    }
+
+    class PaymentStrategy {
+        <<interface>>
+    }
+
+    class ParkingObserver {
+        <<interface>>
+    }
 
     ParkingLot "1" o-- "*" ParkingFloor
     ParkingLot --> ParkingStrategy
@@ -173,252 +365,412 @@ classDiagram
 
     ParkingFloor "1" o-- "*" ParkingSpot
     ParkingFloor "1" o-- "*" ParkingObserver
+
     ParkingSpot --> Vehicle : holds
 
     EntryGate ..> ParkingTicket : creates
     ExitGate ..> PricingStrategy : uses
     ExitGate ..> PaymentStrategy : uses
+
     ParkingTicket --> Vehicle
     ParkingTicket --> ParkingFloor
     ParkingTicket --> ParkingSpot
+
     VehicleFactory ..> Vehicle : creates
 
     Vehicle <|-- Bike
     Vehicle <|-- Car
     Vehicle <|-- Truck
+
     ParkingSpot <|-- BikeSpot
     ParkingSpot <|-- CarSpot
     ParkingSpot <|-- TruckSpot
+
     ParkingStrategy <|.. FirstAvailableParkingStrategy
     PricingStrategy <|.. NormalPricingStrategy
+
     PaymentStrategy <|.. CashPayment
     PaymentStrategy <|.. UPIPayment
     PaymentStrategy <|.. CardPayment
+
     ParkingObserver <|.. ParkingDisplayBoard
 ```
 
-### Park a vehicle
+---
 
-```mermaid
-sequenceDiagram
-    actor User
-    participant CLI as ParkEngine
-    participant F as VehicleFactory
-    participant PL as ParkingLot
-    participant S as ParkingStrategy
-    participant PF as ParkingFloor
-    participant B as DisplayBoard
-    participant EG as EntryGate
+---
 
-    User->>CLI: Park vehicle (type, number)
-    CLI->>F: createVehicle(type, number)
-    F-->>CLI: Vehicle
-    CLI->>PL: parkVehicle(vehicle, entryGate)
-    PL->>PL: reject if already parked
-    PL->>S: findSpot(floors, vehicle)
-    S-->>PL: ParkingSpot
-    PL->>PF: occupySpot(spot, vehicle)
-    PF->>B: update()
-    PL->>EG: generateTicket(vehicle, floor, spot)
-    EG-->>PL: ParkingTicket
-    PL->>PL: store in activeTickets and vehicleTicketMap
-    PL-->>CLI: ParkingTicket
-```
-
-### Exit a vehicle
-
-```mermaid
-sequenceDiagram
-    actor User
-    participant CLI as ParkEngine
-    participant PL as ParkingLot
-    participant XG as ExitGate
-    participant PR as PricingStrategy
-    participant PY as PaymentStrategy
-    participant PF as ParkingFloor
-    participant B as DisplayBoard
-
-    User->>CLI: Exit (ticket number, payment option)
-    CLI->>PL: removeVehicle(ticketNo, exitGate, payment)
-    PL->>PL: find active ticket
-    PL->>XG: processExit(ticket, pricing, payment)
-    XG->>XG: closeTicket() and calculateHours()
-    XG->>PR: calculatePrice(vehicle, hours)
-    PR-->>XG: amount
-    XG->>PY: pay(amount)
-    PL->>PF: releaseSpot(spot)
-    PF->>B: update()
-    PL->>PL: remove ticket records
-```
-
-## 📁 Project Structure
+# Project Structure
 
 ```text
 Park-Engine/
 │
 ├── README.md
 ├── .gitignore
-├── assets/
-│   └── banner.svg
+├── assets/                                  # Project assets
+│   └── banner.svg                          # GitHub README banner
 │
 └── src/
     │
-    ├── factory/                               # Object creation
-    │   └── VehicleFactory.java                # Creates vehicle objects
+    ├── factory/                             # Object creation
+    │   └── VehicleFactory.java              # Creates vehicle objects
     │
-    ├── gate/                                  # Entry and exit operations
-    │   ├── EntryGate.java                     # Handles vehicle entry and ticket generation
-    │   └── ExitGate.java                      # Handles vehicle exit, pricing, and payment
+    ├── gate/                                # Entry and exit operations
+    │   ├── EntryGate.java                   # Handles vehicle entry and ticket generation
+    │   └── ExitGate.java                    # Handles vehicle exit, pricing, and payment
     │
-    ├── model/                                 # Core domain objects
-    │   ├── Vehicle.java                       # Abstract base class for vehicles
-    │   ├── VehicleType.java                   # Enum for vehicle types
-    │   ├── Bike.java                          # Represents a bike
-    │   ├── Car.java                           # Represents a car
-    │   ├── Truck.java                         # Represents a truck
+    ├── model/                               # Core domain objects
+    │   ├── Vehicle.java                     # Abstract base class for vehicles
+    │   ├── VehicleType.java                 # Enum for vehicle types
+    │   ├── Bike.java                        # Represents a bike
+    │   ├── Car.java                         # Represents a car
+    │   ├── Truck.java                       # Represents a truck
     │   │
-    │   ├── ParkingSpot.java                   # Abstract base class for parking spots
-    │   ├── SpotType.java                      # Enum for parking spot types
-    │   ├── BikeSpot.java                      # Parking spot for bikes
-    │   ├── CarSpot.java                       # Parking spot for cars
-    │   ├── TruckSpot.java                     # Parking spot for trucks
+    │   ├── ParkingSpot.java                 # Abstract base class for parking spots
+    │   ├── SpotType.java                    # Enum for parking spot types
+    │   ├── BikeSpot.java                    # Parking spot for bikes
+    │   ├── CarSpot.java                     # Parking spot for cars
+    │   ├── TruckSpot.java                   # Parking spot for trucks
     │   │
-    │   ├── ParkingFloor.java                  # Manages spots and floor availability
-    │   ├── ParkingTicket.java                 # Stores parking ticket information
-    │   └── TicketStatus.java                  # Enum for ticket status
+    │   ├── ParkingFloor.java                # Manages spots and floor availability
+    │   ├── ParkingTicket.java               # Stores parking ticket information
+    │   └── TicketStatus.java                # Enum for ticket status
     │
-    ├── observer/                              # Observer pattern
-    │   ├── ParkingObserver.java               # Interface for availability observers
-    │   └── ParkingDisplayBoard.java           # Displays parking availability
+    ├── observer/                            # Observer Pattern
+    │   ├── ParkingObserver.java             # Interface for availability observers
+    │   └── ParkingDisplayBoard.java         # Displays parking availability
     │
-    ├── payment/                               # Payment and pricing
-    │   ├── PaymentStrategy.java               # Interface for payment methods
-    │   ├── CashPayment.java                   # Handles cash payments
-    │   ├── UPIPayment.java                    # Handles UPI payments
-    │   ├── CardPayment.java                   # Handles card payments
-    │   ├── PricingStrategy.java               # Interface for pricing algorithms
-    │   └── NormalPricingStrategy.java         # Calculates normal parking charges
+    ├── payment/                             # Payment and pricing
+    │   ├── PaymentStrategy.java             # Interface for payment methods
+    │   ├── CashPayment.java                 # Handles cash payments
+    │   ├── UPIPayment.java                  # Handles UPI payments
+    │   ├── CardPayment.java                 # Handles card payments
+    │   ├── PricingStrategy.java             # Interface for pricing algorithms
+    │   └── NormalPricingStrategy.java       # Calculates normal parking charges
     │
-    ├── strategy/                              # Parking allocation strategies
-    │   ├── ParkingStrategy.java               # Interface for parking allocation
+    ├── strategy/                            # Parking allocation strategies
+    │   ├── ParkingStrategy.java             # Interface for parking allocation
     │   └── FirstAvailableParkingStrategy.java # Selects the first suitable parking spot
     │
-    ├── ParkingLot.java                        # Central parking lot manager (Singleton)
-    └── ParkEngine.java                        # CLI application entry point
+    ├── ParkingLot.java                      # Central parking lot manager (Singleton)
+    └── ParkEngine.java                      # CLI application entry point
 ```
 
-## 🚀 Getting Started
+> `.class` files are generated Java bytecode and should not be committed to GitHub.
 
-### Prerequisites
+---
 
-- **JDK 8** or higher
+# Getting Started
+
+## Prerequisites
+
+- JDK 8 or higher
 - Git
 
-### Clone
+Check the installed Java version:
+
+```bash
+java -version
+javac -version
+```
+
+## Clone the Repository
 
 ```bash
 git clone https://github.com/SanketHajare44/Park-Engine.git
 cd Park-Engine
 ```
 
-### Compile
+## Compile
+
+From the project root:
+
+### Linux / macOS
 
 ```bash
-# Linux / macOS
 javac -d out $(find src -name "*.java")
+```
 
-# Windows (PowerShell)
+### Windows PowerShell
+
+```powershell
 javac -d out (Get-ChildItem -Recurse -Filter *.java src | ForEach-Object FullName)
 ```
 
-### Run
+## Run
 
 ```bash
 java -cp out ParkEngine
 ```
 
-### Demo setup
+---
 
-The CLI starts with a ready-to-use lot of **2 floors**, each with **2 bike, 2 car, and 2 truck spots** (spots `101–106` on floor 1 and `201–206` on floor 2), one entry gate, and one exit gate.
-
-### Menu
+# Application Menu
 
 ```text
+---------------------------------------------------
+------------------- Park Engine -------------------
+---------------------------------------------------
+
 1 : Park Vehicle
 2 : Exit Vehicle
 3 : Search Vehicle
 4 : Display Parking Lot
 5 : Exit
-```
 
-### Sample output
-
-```text
------------------- Display Board ------------------
-Floor                : 1
-Available Bike pots  : 2
-Available Car pots   : 1
-Available Truck pots : 2
 ---------------------------------------------------
 
-Vehicle entering from gate : 1
------------------- Parking Ticket ------------------
-Ticket Number  : 1001
-Vehicle Number : MH12AB1234
-Vehicle Type   : CAR
-Floor Number   : 1
-Spot Number    : 103
-Ticket Status  : ACTIVE
-
-Vehicle Exit from gate : 1
-Parking duration       : 1
-Parking charges        : 50.0
-UPI Payment Successful : Rs. 50.0
+Enter your choice :
 ```
 
-## 💰 Pricing
+---
 
-`NormalPricingStrategy` bills per hour. Partial hours are rounded up, and the minimum charge is 1 hour.
+# Example
 
-| Vehicle | Rate per hour |
-| ------- | ------------- |
-| Bike    | Rs. 20        |
-| Car     | Rs. 50        |
-| Truck   | Rs. 100       |
+## Park Vehicle
 
-## 🔧 Extending the System
+```text
+Select vehicle type:
+1 : Bike
+2 : Car
+3 : Truck
 
-| I want to add...                           | What to do                                                                                                                               |
-| ------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------- |
-| A new vehicle (e.g. EV)                    | Add a class extending `Vehicle`, a `VehicleType` and `SpotType` entry, a matching `ParkingSpot` subclass, and a case in `VehicleFactory` |
-| A new payment method                       | Implement `PaymentStrategy`                                                                                                              |
-| Peak-hour or weekend pricing               | Implement `PricingStrategy` and call `parkingLot.setPricingStrategy(...)`                                                                |
-| Nearest-to-exit or lowest-floor allocation | Implement `ParkingStrategy` and call `parkingLot.setParkingStrategy(...)`                                                                |
-| SMS or mobile notifications                | Implement `ParkingObserver` and register it with `floor.addObservers(...)`                                                               |
+Enter vehicle Number:
+MH12SH003
+```
 
-## 🗺️ Roadmap
+The system:
 
-- [ ] Input validation in the CLI menu (non-numeric input currently ends the program)
-- [ ] Thread-safe allocation for concurrent gates (thread-safe collections, atomic ticket counter)
-- [ ] Persistent storage for tickets
-- [ ] Unit tests with JUnit 5
-- [ ] More strategies: nearest spot, peak-hour pricing, monthly pass
-- [ ] REST API layer (Spring Boot)
+1. Creates the vehicle using `VehicleFactory`
+2. Finds a suitable parking spot
+3. Occupies the spot
+4. Generates a parking ticket
+5. Updates the display board
 
-## 🤝 Contributing
+Example ticket:
 
-Contributions, issues, and feature requests are welcome.
+```text
+------------------ Parking Ticket ------------------
 
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature/your-feature`
-3. Commit your changes: `git commit -m "Add your feature"`
-4. Push the branch: `git push origin feature/your-feature`
-5. Open a Pull Request
+Ticket Number  : 1001
+Vehicle Number : MH12SH003
+Vehicle Type   : BIKE
+Floor Number   : 1
+Spot Number    : 101
+Ticket Status  : ACTIVE
+```
 
-## 👨‍💻 Author
+## Exit Vehicle
+
+The user enters the ticket number and selects a payment method:
+
+```text
+1 : Cash
+2 : UPI
+3 : Card
+```
+
+The system:
+
+1. Finds the active ticket
+2. Calculates the parking duration
+3. Calculates the parking charge
+4. Processes the selected payment
+5. Releases the parking spot
+6. Updates the display board
+7. Removes the ticket from active records
+
+---
+
+# Pricing
+
+`NormalPricingStrategy` calculates parking charges based on the vehicle type and parking duration.
+
+| Vehicle | Rate per Hour |
+| ------- | ------------: |
+| Bike    |        Rs. 20 |
+| Car     |        Rs. 50 |
+| Truck   |       Rs. 100 |
+
+Partial parking hours are rounded up, with a minimum charge of one hour.
+
+---
+
+# Extending the System
+
+The system is designed so that new behavior can be added through existing interfaces.
+
+| Requirement                            | Implementation                                                   |
+| -------------------------------------- | ---------------------------------------------------------------- |
+| Add a new payment method               | Implement `PaymentStrategy`                                      |
+| Add a new pricing rule                 | Implement `PricingStrategy`                                      |
+| Add a new parking allocation algorithm | Implement `ParkingStrategy`                                      |
+| Add a new availability observer        | Implement `ParkingObserver`                                      |
+| Add a new vehicle type                 | Add a `Vehicle` implementation and update vehicle creation logic |
+
+For example, a new payment method can be added by implementing:
+
+```java
+public class WalletPayment implements PaymentStrategy {
+
+    @Override
+    public void pay(double amount) {
+        System.out.println("Wallet Payment Successful : Rs. " + amount);
+    }
+}
+```
+
+The existing `PaymentStrategy` contract remains unchanged.
+
+---
+
+# Roadmap
+
+- [ ] Improve CLI input validation
+- [ ] Add JUnit 5 unit tests
+- [ ] Add persistent storage
+- [ ] Add more parking allocation strategies
+- [ ] Add dynamic / peak-hour pricing
+- [ ] Add monthly parking passes
+- [ ] Add concurrency support for multiple gates
+- [ ] Add REST API using Spring Boot
+
+These are future improvements and are not part of the current implementation.
+
+---
+
+# Code Commenting Style
+
+Comments in the source code are kept short and focused on the responsibility of the class, interface, enum, or important logic block.
+
+### Class
+
+```java
+// Manages the complete parking facility
+public class ParkingLot {
+}
+```
+
+### Interface
+
+```java
+// Defines the contract for parking allocation strategies
+public interface ParkingStrategy {
+}
+```
+
+### Enum
+
+```java
+// Defines the supported vehicle types
+public enum VehicleType {
+    BIKE,
+    CAR,
+    TRUCK
+}
+```
+
+### Strategy Implementation
+
+```java
+// Selects the first suitable available parking spot
+public class FirstAvailableParkingStrategy
+        implements ParkingStrategy {
+}
+```
+
+### Factory
+
+```java
+// Creates vehicle objects based on vehicle type
+public class VehicleFactory {
+}
+```
+
+### Observer
+
+```java
+// Displays parking availability for a floor
+public class ParkingDisplayBoard
+        implements ParkingObserver {
+}
+```
+
+Comments should explain **purpose and responsibility**, not obvious Java syntax.
+
+---
+
+# Learning Outcomes
+
+This project provided practical experience with:
+
+- Java
+- Object-Oriented Programming
+- Low-Level Design
+- UML
+- SOLID principles
+- Abstraction
+- Encapsulation
+- Inheritance
+- Polymorphism
+- Interfaces
+- Design Patterns
+- Separation of Responsibilities
+- Loose Coupling
+- Object Collaboration
+
+---
+
+# Future Scope
+
+The current implementation is a console-based LLD project. It can be extended into a larger application by adding:
+
+- Database persistence
+- REST APIs
+- Authentication and authorization
+- Web or mobile interface
+- Online parking reservation
+- Real-time availability
+- Payment gateway integration
+- Administrative dashboard
+- Vehicle number plate recognition
+- Advanced parking allocation
+- Concurrent vehicle entry and exit handling
+
+---
+
+# Contributing
+
+This project is primarily maintained as a learning and portfolio project.
+
+Suggestions and improvements are welcome.
+
+For a contribution:
+
+```bash
+git checkout -b feature/your-feature
+```
+
+Make your changes and commit:
+
+```bash
+git add .
+git commit -m "Add your feature"
+```
+
+Push the branch:
+
+```bash
+git push origin feature/your-feature
+```
+
+---
+
+# Author
 
 **Sanket Sadashiv Hajare**
-B.E. Computer/IT · SPPU
+
+B.E. Computer Engineering | Java | Software Engineering | System Design | LLD
 
 [![GitHub](https://img.shields.io/badge/GitHub-SanketHajare44-181717?style=flat-square&logo=github)](https://github.com/SanketHajare44)
 
@@ -426,6 +778,6 @@ B.E. Computer/IT · SPPU
 
 <div align="center">
 
-If you found this project useful, consider giving it a ⭐
+**ParkEngine - Parking Lot Management System**
 
 </div>
